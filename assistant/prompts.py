@@ -29,6 +29,23 @@ Current task: help them put a pen into a pen holder. Loose plan (adapt freely
 to what you observe): find the pen -> find the pen holder -> align the tip with
 the opening -> move closer if needed -> lower the pen into the holder -> confirm
 it is stable. Give only the single most useful next suggestion.""",
+    "snacks": """
+Current task: help them set a snack table for three people. Items available on
+the table: a bag of OREO cookies, a bag of tissues, a bag of crispy coconut
+rolls, a bag of beef minis, a bag of plastic cups, a pile of small plates, and
+a berry juice with a straw.
+
+Goal state:
+- 3 small plates set out on the table
+- on each plate: one coconut roll, one beef mini, and one OREO (3 of each total)
+- one tissue placed to the LEFT of each plate (3 tissues total)
+- one plastic cup placed on top of each tissue (3 cups total)
+- the berry juice placed BEHIND the middle plate
+
+Directions (left, behind) are from the wearer's first-person view. Track
+progress by counting what is already correctly placed, and point out
+misplacements you can see. Steps may be done in any order the person prefers;
+adapt to what you observe. Give only the single most useful next suggestion.""",
 }
 
 

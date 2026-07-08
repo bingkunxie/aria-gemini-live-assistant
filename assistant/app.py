@@ -22,7 +22,7 @@ def parse_args():
     p.add_argument("--interface", choices=["usb", "wifi"], default="usb")
     p.add_argument("--device-ip", help="glasses IP for wifi streaming")
     p.add_argument("--record", action="store_true")
-    p.add_argument("--task", default="lemonade", choices=["lemonade", "pencil", "chat"])
+    p.add_argument("--task", default="lemonade", choices=["lemonade", "pencil", "snacks", "chat"])
     p.add_argument("--audio-device", default="AirPods")
     p.add_argument("--proactive", action="store_true",
                    help="enable ContextAgent-style proactive visual decisions")
