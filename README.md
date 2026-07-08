@@ -106,12 +106,21 @@ block device-to-device traffic — use home Wi-Fi or a phone hotspot.
 # glasses over USB
 python -m assistant --interface usb --task chat
 
+# ContextAgent-style proactive visual reminders
+python -m assistant --interface usb --task chat --proactive --proactive-say
+
 # glasses over WiFi (find the IP in the Aria app)
 python -m assistant --interface wifi --device-ip <GLASSES_IP> --task chat
 ```
 
 Transcript + live camera: **http://localhost:8899** (opens automatically).
 Stop with Ctrl-C (WiFi teardown can take ~20 s).
+
+`--proactive` runs a separate visual decision loop over the latest Aria RGB JPEG.
+It asks Gemini for a compact JSON decision, then the local policy speaks only
+messages that pass `--proactive-threshold`, `--proactive-min-confidence`, and
+`--proactive-cooldown`. This keeps JSON decisions out of the main Live voice
+conversation.
 
 ## Tests
 

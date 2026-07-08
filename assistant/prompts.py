@@ -24,6 +24,11 @@ wash the lemon -> cut it -> squeeze juice into the cup -> add water ->
 add sugar -> stir -> taste and adjust.
 Start, when you first see the scene, by greeting them in one sentence and
 offering your first suggestion.""",
+    "pencil": """
+Current task: help them put a pen into a pen holder. Loose plan (adapt freely
+to what you observe): find the pen -> find the pen holder -> align the tip with
+the opening -> move closer if needed -> lower the pen into the holder -> confirm
+it is stable. Give only the single most useful next suggestion.""",
 }
 
 
