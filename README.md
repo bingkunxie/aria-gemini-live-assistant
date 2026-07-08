@@ -7,9 +7,8 @@ both ways through AirPods; a local web page shows the live camera view and conve
 transcript.
 
 Built as a prototype for a research project on **human-AI reliance in physical tasks**:
-the wearer performs a sequential decision-making task (e.g. making
-lemonade) while the AI coach offers discrete, rejectable suggestions. The event log
-captures every suggestion and response with timestamps for later accept/reject coding.
+the wearer performs a sequential decision-making task (e.g. cooking) while the AI
+assistant offers discrete, rejectable suggestions.
 
 ## Architecture
 
