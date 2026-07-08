@@ -4,7 +4,7 @@ Real-time AI assistant that sees through [Project Aria](https://www.projectaria.
 glasses and talks with the wearer. The Aria RGB camera streams to the
 [Gemini Live API](https://ai.google.dev/gemini-api/docs/live) at 1 fps while audio flows
 both ways through AirPods; a local web page shows the live camera view and conversation
-transcript; record mode captures a shareable demo video plus research-grade logs.
+transcript.
 
 Built as a prototype for a research project on **human-AI reliance in physical tasks**:
 the wearer performs a sequential decision-making task (e.g. making
@@ -24,8 +24,6 @@ AirPods mic ──▶ sounddevice ──▶ 16kHz PCM16 ────────
 AirPods out ──┘                                                     │
                                                                     │ transcription events
 Browser (camera + transcript) ◀── localhost:8899 ◀── transcript hub ┘
-                                                        │
-record mode: composite MP4 ◀────────────────────────────┴──▶ events.jsonl, WAVs
 ```
 
 | Module | Responsibility |
@@ -34,7 +32,6 @@ record mode: composite MP4 ◀────────────────�
 | `assistant/audio_io.py` | AirPods duplex audio; flushable playback for barge-in |
 | `assistant/gemini_session.py` | Live API session, transcription, compression, resumption, reconnect |
 | `assistant/transcript_hub.py` | Event log + stitched transcript + web page (`localhost:8899`) |
-| `assistant/recorder.py` | Wall-clock-synced composite MP4, WAV tracks, ffmpeg mux |
 | `assistant/prompts.py` | Coach persona (tasks) — `chat` mode runs promptless |
 | `assistant/app.py` | CLI and wiring |
 
@@ -51,7 +48,6 @@ compression) and ~10-minute connection lifetime (session resumption across recon
 | **macOS** (tested on macOS 14; Apple Silicon and Intel both fine) | The Aria Client SDK also ships Linux wheels, but this project's audio/network notes are macOS-specific |
 | **Python 3.11** | The `projectaria-client-sdk` wheel targets specific Python versions; 3.11 is what this project is tested on |
 | **A Gemini API key** | Free at [aistudio.google.com](https://aistudio.google.com) → *Get API key* → *Create API key* |
-| **ffmpeg** | `brew install ffmpeg` (only needed for `--record`) |
 | **Headphones with a mic** (e.g. AirPods) | Any input/output pair works; the app prefers devices whose name matches `--audio-device` (default `AirPods`) and falls back to the system default |
 
 ### 1. Install
@@ -108,24 +104,15 @@ block device-to-device traffic — use home Wi-Fi or a phone hotspot.
 ## Usage
 
 ```bash
-python -m assistant --audio-test                                   # voice only, no glasses
-python -m assistant --interface usb  --task chat                   # vision, default Gemini persona
-python -m assistant --interface wifi --device-ip <IP> --task lemonade           # coach persona
-python -m assistant --interface wifi --device-ip <IP> --task lemonade --record  # + save demo
+# glasses over USB
+python -m assistant --interface usb --task chat
+
+# glasses over WiFi (find the IP in the Aria app)
+python -m assistant --interface wifi --device-ip <GLASSES_IP> --task chat
 ```
 
 Transcript + live camera: **http://localhost:8899** (opens automatically).
-Stop with Ctrl-C — in record mode this finalizes the recording (WiFi teardown can take
-~20 s; if you signal from a script, signal the *Python* process, not its shell wrapper).
-
-### Record-mode outputs — `sessions/<timestamp>/`
-
-- `demo.mp4` — camera view + transcript panel, both voices mixed, A/V synced to wall clock
-- `mic.wav` / `gemini.wav` — separate raw tracks (silence-padded to the same wall clock)
-- `transcript.txt` — human-readable conversation
-- `events.jsonl` — timestamped `user_transcript` / `model_transcript` / `frame_sent` /
-  `session_event` events for analysis
-- `demo_video.mp4` — video-only intermediate (kept so a failed mux can be re-run)
+Stop with Ctrl-C (WiFi teardown can take ~20 s).
 
 ## Tests
 
