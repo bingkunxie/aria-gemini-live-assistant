@@ -11,7 +11,7 @@
 **Spec:** `docs/specs/2026-07-03-aria-gemini-live-assistant-design.md`
 
 **Conventions used below:**
-- `PY` = `~/projectaria_tools_python_env/bin/python`. All commands run from `~/ProjectAria/gemini_assistant/`.
+- `PY` = `~/projectaria_tools_python_env/bin/python`. All commands run from `~/aria-gemini-live-assistant/`.
 - Steps marked **[USER ACTION]** require the human (API key creation, wearing devices, speaking). The executor must stop and ask, not fake these.
 - Verified API facts (docs 2026-07-03): audio in = PCM16 16 kHz mono, out = PCM16 24 kHz; JPEG ≤1 fps via `send_realtime_input(video=Blob)`; transcription via `input_audio_transcription`/`output_audio_transcription`; compression via `ContextWindowCompressionConfig(sliding_window=SlidingWindow())`; resumption via `SessionResumptionConfig(handle=...)`. If a `google-genai` attribute in this plan doesn't exist at runtime, check https://ai.google.dev/gemini-api/docs/live-guide — field names, not concepts, may have drifted.
 
@@ -862,7 +862,7 @@ git add assistant/prompts.py assistant/gemini_session.py assistant/app.py && git
 
 **Files:** Create `assistant/aria_source.py`.
 
-- [ ] **Step 6.1: Implement `assistant/aria_source.py`** (mirrors the proven sample at `~/ProjectAria/client_sdk_samples/device_stream_cv2.py`; RGB-only subscription)
+- [ ] **Step 6.1: Implement `assistant/aria_source.py`** (mirrors the proven sample at `~/ProjectAria/aria_vision_pipeline/live_preview/live_preview.py`; RGB-only subscription)
 
 ```python
 import threading

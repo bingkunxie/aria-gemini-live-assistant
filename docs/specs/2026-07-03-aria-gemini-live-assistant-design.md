@@ -60,7 +60,7 @@ transcription enabled with `input_audio_transcription` /
 
 ## Components
 
-Project root: `~/ProjectAria/gemini_assistant/` (own git repo). Runs in the
+Project root: `~/aria-gemini-live-assistant/` (own git repo). Runs in the
 existing venv `~/projectaria_tools_python_env` (Python 3.11; already has
 `projectaria_client_sdk` 2.4.0, `opencv-python`, `numpy`). New deps:
 `google-genai`, `sounddevice`, `aiohttp` (transcript server), `python-dotenv`.
@@ -123,7 +123,7 @@ research prototype; verification is behavioral per stage.
 
 ## Record-mode outputs
 
-`~/ProjectAria/gemini_assistant/sessions/<YYYYMMDD-HHMMSS>/`:
+`~/aria-gemini-live-assistant/sessions/<YYYYMMDD-HHMMSS>/`:
 - `demo.mp4` — composite video + mixed conversation audio
 - `mic.wav`, `gemini.wav` — separate raw tracks
 - `transcript.txt`, `events.json`
