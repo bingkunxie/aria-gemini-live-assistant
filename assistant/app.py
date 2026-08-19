@@ -23,6 +23,10 @@ def parse_args():
     p.add_argument("--record", action="store_true")
     p.add_argument("--task", default="lemonade", choices=["lemonade", "chat"])
     p.add_argument("--audio-device", default="AirPods")
+    p.add_argument("--echo-guard", type=float, default=0.0, metavar="SECONDS",
+                   help="mute mic to Gemini while the speaker plays, plus this hangover "
+                        "(e.g. 0.4). Use with built-in speakers to stop Gemini hearing "
+                        "itself; leave 0 with headphones so barge-in still works.")
     return p.parse_args()
 
 
@@ -46,7 +50,8 @@ async def run(args):
     webbrowser.open("http://localhost:8899")
 
     audio = AudioIO(loop, prefer=args.audio_device,
-                    on_mic_chunk=recorder.add_mic if recorder else None)
+                    on_mic_chunk=recorder.add_mic if recorder else None,
+                    echo_guard=args.echo_guard)
     audio.start()
 
     aria_src = None
